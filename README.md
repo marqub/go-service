@@ -15,7 +15,7 @@ For example, to deploy 2 microservices and have one depends on the other:
 
 ``` helm install chart/ --name service2 --namespace resiliency-testing ```
 
-``` helm install chart/ --name service1 --namespace resiliency-testing --set DEPENDENCY_NAME=service2.resiliency-testing ```
+``` helm install chart/ --name service1 --namespace resiliency-testing --set DEPENDENCY_NAME=service2-go-service.resiliency-testing ```
 
 Ingresses, services and pods are created in the same namespace
 ``` 
