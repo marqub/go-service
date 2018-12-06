@@ -8,6 +8,6 @@ image:
     pullPolicy: Always  
 service:
     name: go-service
-    type: ClusterIP
+    type: NodePort
     externalPort: 8080
     internalPort: 8080

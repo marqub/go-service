@@ -28,6 +28,12 @@ spec:
             - name: http-{{ .Values.service.name }}
               protocol: TCP
               containerPort: {{ .Values.service.internalPort }}
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: {{ .Values.service.internalPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

@@ -42,14 +42,15 @@ func status(w http.ResponseWriter, r *http.Request) {
 
 	if dependency != "" {
 		var client http.Client
-		resp, err := client.Get(dependency)
+		resp, err := client.Get(dependency + "/status")
 		if err != nil {
+			log.Errorf("dependency unreachable: %v ", err)
 			globalStatus.Dependencies = append(globalStatus.Dependencies, jsonStatus{Status: "UNKNOWN", Name: dependency})
 		} else {
 			defer resp.Body.Close()
 			if resp.StatusCode == http.StatusOK {
 				var dependencyResponse jsonStatus
-				data, err := ioutil.ReadAll(r.Body)
+				data, err := ioutil.ReadAll(resp.Body)
 				if err != nil {
 					log.Errorf("response can't be read: %v ", err)
 					returnError(http.StatusInternalServerError, "Invalid response", w)
